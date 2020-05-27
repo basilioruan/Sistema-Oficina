@@ -17,14 +17,16 @@ public class Peca implements Serializable{
     private String nome;
     private int quantidade;
     private float preco;
+    private String data;
     
     public Peca() { }
     
-    public Peca(int id, String nome, int quantidade, float preco) {
+    public Peca(int id, String nome, int quantidade, float preco, String data) {
         this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
+        this.data = data;
     }
     
     public int getId(){
@@ -55,4 +57,7 @@ public class Peca implements Serializable{
         this.preco = preco;
     }
     
+    public String getData() {
+        return data;
+    }
 }
