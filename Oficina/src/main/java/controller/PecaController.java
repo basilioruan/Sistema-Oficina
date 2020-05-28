@@ -9,9 +9,6 @@ import DAO.PecaDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import models.Peca;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  *
@@ -21,18 +18,16 @@ public class PecaController {
     
     private static int valorId;
     private ArrayList<Peca> pecas;
+    private PecaDAO pecaDAO;
     
     public PecaController(){
         valorId=0;
         pecas = new ArrayList<Peca>();
+        pecaDAO = new PecaDAO();
     }
     
-    public boolean inserir(String nome, int quantidade, float preco) {
-        PecaDAO pecaDAO = new PecaDAO();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        String data = dateFormat.format(date);
-        Peca peca = new Peca(valorId, nome, quantidade, preco, data);
+    public boolean inserir(String nome, int quantidade, float preco, String data, String prateleira, String local) {
+        Peca peca = new Peca(valorId, nome, quantidade, preco, data, prateleira, local);
         if(pecaDAO.salvarArquivo(peca)) {
             valorId++;
             return true;
@@ -46,32 +41,40 @@ public class PecaController {
         return pecas;
     }
     
-    public String mostrarPecas() {
+    public String mostrarPecas() throws ClassNotFoundException, IOException {
+        pecas = pecaDAO.buscarTudoArquivo();
         if(pecas.size() > 0) {
             String retorno = "----------------Listando Peças----------------" + "\n" + "\n";
 
             for (Peca peca : pecas) {
-                retorno = retorno + "Nome: " + peca.getNome() + "\n"
-                        + "Quantidade em estoque: " + peca.getQuantidade() + "\n"
-                        + "Preço: " + peca.getPreco() + "\n"
-                        + "Data de cadastro: " + peca.getData() + "\n"
+                retorno = retorno + "Nome....................: " + peca.getNome() + "\n"
+                        + "Quantidade em estoque...: " + peca.getQuantidade() + "\n"
+                        + "Preço...................: R$" + peca.getPreco() + "\n"
+                        + "Prateleira..............: " + peca.getPrateleira() + "\n"
+                        + "Local...................: " + peca.getLocal() + "\n"
+                        + "Data de cadastro........: " + peca.getData() + "\n"
                         + "_________________________________________" + "\n" + "\n";
             }
+            
+            pecas.removeAll(pecas);
+            
             return retorno;
         }
         else {
-            return "Não possui peças no sistema";
+            return "Não possui peças cadastradas no sistema";
         }
     }
     
+    
     public String consultarPeca(String nome) throws IOException, ClassNotFoundException {
-        PecaDAO pecaDAO = new PecaDAO();
         Peca peca = pecaDAO.buscarArquivo(nome);
         if(peca != null){
-            String retorno = "Nome: " + peca.getNome() + "\n"
-                    + "Quantidade em estoque: " + peca.getQuantidade() + "\n"
-                    + "Preço: " + peca.getPreco() + "\n"
-                    + "Data de cadastro: " + peca.getData() + "\n"
+            String retorno = "Nome....................: " + peca.getNome() + "\n"
+                        + "Quantidade em estoque...: " + peca.getQuantidade() + "\n"
+                        + "Preço...................: R$" + peca.getPreco() + "\n"
+                        + "Prateleira..............: " + peca.getPrateleira() + "\n"
+                        + "Local...................: " + peca.getLocal() + "\n"
+                        + "Data de cadastro........: " + peca.getData() + "\n"
                     + "_________________________________________" + "\n";
             return retorno;
         }
@@ -80,13 +83,30 @@ public class PecaController {
         }
     }
     
-    public boolean removerPeca(String nome) {
+    public boolean removerPeca(String nome) throws ClassNotFoundException, IOException {
+        pecas = pecaDAO.buscarTudoArquivo();
+        boolean check = false;
         for (Peca peca: pecas) {
             if(peca.getNome().equals(nome)) {
                 pecas.remove(peca);
-                return true;
+                check = true;
+                break;
             }
         }
-        return false;
+        
+        if(check) {
+            pecaDAO.salvarTudoArquivo(pecas);
+        }
+        
+        return check;
+    }
+    
+    public boolean editarPeca(String pecaRemovida, String nome, int quantidade, float preco, String data, String prateleira, String local) throws ClassNotFoundException, IOException {
+        int id = -1;
+        this.removerPeca(pecaRemovida);
+        Peca peca = new Peca(id, nome, quantidade, preco, data, prateleira, local);
+        pecaDAO.salvarArquivo(peca);
+        
+        return true;
     }
 }

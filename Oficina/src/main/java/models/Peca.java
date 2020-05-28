@@ -18,15 +18,19 @@ public class Peca implements Serializable{
     private int quantidade;
     private float preco;
     private String data;
+    private String prateleira;
+    private String local;
     
     public Peca() { }
     
-    public Peca(int id, String nome, int quantidade, float preco, String data) {
+    public Peca(int id, String nome, int quantidade, float preco, String data, String prateleira, String local) {
         this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.data = data;
+        this.prateleira = prateleira;
+        this.local = local;
     }
     
     public int getId(){
@@ -59,5 +63,25 @@ public class Peca implements Serializable{
     
     public String getData() {
         return data;
+    }
+    
+    public void setData(String data) {
+        this.data = data;
+    }
+    
+    public String getPrateleira() {
+        return prateleira;
+    }
+    
+    public void setPrateleira(String prateleira) {
+        this.prateleira = prateleira;
+    }
+    
+    public String getLocal() {
+        return local;
+    }
+    
+    public void setLocal(String local) {
+        this.local = local;
     }
 }
