@@ -8,7 +8,6 @@ package view;
 import controller.PecaController;
 import helpers.Helper;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,9 +17,66 @@ import java.util.Scanner;
 public class PecaView {
     
     Scanner ler = new Scanner(System.in);
-    PecaController controller = new PecaController();
+    PecaController controller;
     
-    public PecaView(){}
+    public PecaView() throws IOException, ClassNotFoundException{
+        this.controller = new PecaController();
+    }
+    
+    public void menu() throws IOException, ClassNotFoundException, InterruptedException {
+        String opcao = "";
+        while(!opcao.equals("0")){
+            Helper.limparTela();
+            
+            System.out.println("======== MENU DE PEÇAS ========");
+            System.out.println("1 - Cadastrar peça");
+            System.out.println("2 - Buscar peça");
+            System.out.println("3 - Exibir peças");
+            System.out.println("4 - Editar peça");
+            System.out.println("5 - Remover peça");
+            System.out.println("6 - Adicionar estoque");
+            System.out.println("7 - Exibir peças sem estoque");
+            System.out.println("0 - Voltar para o menu principal");
+            System.out.print("Escolha a opção desejada: ");
+            opcao = ler.nextLine();
+            
+            Helper.limparTela();
+            if(opcao.equals("1") || opcao.equals("2") || opcao.equals("3") || opcao.equals("4") || opcao.equals("5") || opcao.equals("6") || opcao.equals("7")){
+                if(opcao.equals("1")) {
+                    inserir();
+                }
+
+                else if(opcao.equals("2")) {
+                    consultarPeca();
+                }
+
+                else if(opcao.equals("3")){
+                    imprimir();
+                }
+
+                else if(opcao.equals("4")){
+                    editarPeca();
+                }
+
+                else if(opcao.equals("5")){
+                    removerPeca();
+                }
+                
+                else if(opcao.equals("6")) {
+                    adicionarEstoque();
+                }
+                
+                else if(opcao.equals("7")) {
+                    exibirSemEstoque();
+                }
+            }
+            else if(!opcao.equals("0")){
+                System.out.println("Opção selecionada inválida, digite apenas um único número.");
+                System.out.print("Pressione ENTER para continuar");
+                ler.nextLine();
+            }
+        }
+    }
     
     public void inserir() {
     
@@ -134,6 +190,34 @@ public class PecaView {
             System.out.print("Pressione Enter para continuar");
             ler.nextLine();
         }
+    }
+    
+    public void adicionarEstoque() throws IOException, ClassNotFoundException {
+        System.out.print("Digite o nome da peça que deseja editar: ");
+        String nome = ler.nextLine();
+        String peca = controller.consultarPeca(nome);
+        if(peca != null) {
+            System.out.print("Digite a quantidade que chegou da peça: ");
+            int quantidade = ler.nextInt();
+            Helper.clearBuffer(ler);
+            int estoque = controller.adicionarEstoque(quantidade, nome);
+            if(estoque != -1) {
+                System.out.println("Foram adicionado " + quantidade + " ao estoque de " + nome + ". Total em estoque agora: " + estoque);
+                System.out.print("Pressione Enter para continuar");
+                ler.nextLine();
+            }
+        }
+        else {
+            System.out.println("A peça (" + nome + ") não foi encontrada no sistema");
+            System.out.print("Pressione Enter para continuar");
+            ler.nextLine();
+        }
+    }
+    
+    public void exibirSemEstoque() {
+        System.out.println(controller.exibirSemEstoque());
+        System.out.print("Pressione Enter para continuar");
+        ler.nextLine();
     }
     
 }
