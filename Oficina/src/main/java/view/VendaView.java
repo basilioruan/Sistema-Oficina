@@ -20,7 +20,7 @@ public class VendaView {
     Scanner ler = new Scanner(System.in);
     private static VendaController controller;
     
-    public VendaView() {
+    public VendaView() throws IOException, ClassNotFoundException {
         
         controller = new VendaController();
         

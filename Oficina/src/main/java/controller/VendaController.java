@@ -5,7 +5,9 @@
  */
 package controller;
 
+import DAO.VendaDAO;
 import helpers.Helper;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import models.Venda;
@@ -16,10 +18,16 @@ import models.Venda;
  */
 public class VendaController {
     
-    private ArrayList<Venda> vendas;
+    private static ArrayList<Venda> vendas;
+    private VendaDAO vendaDAO;
     
-    public VendaController() {
+    public VendaController() throws IOException, ClassNotFoundException {
         vendas = new ArrayList<Venda>();
+        vendaDAO = new VendaDAO();
+        File arquivo = new File("vendas.bin");
+        if(arquivo.exists()){
+            vendas = vendaDAO.buscarArquivo();
+        }
     }
     
     public String realizarVenda(String nome, int quantidade) throws IOException, ClassNotFoundException {
@@ -42,21 +50,27 @@ public class VendaController {
         else {
             Venda venda = new Venda(nome, quantidade, resultado, Helper.gerarData());
             vendas.add(venda);
+            vendaDAO.salvarArquivo(vendas);
             return("Venda realizada com sucesso!");
         }
     }
     
     public String exibirVendas() {
-        String retorno = "----------------Listando Vendas----------------" + "\n" + "\n";
-        for(Venda venda : vendas) {
-            retorno = retorno + "Nome produto............: " + venda.getProduto() + "\n"
-                            + "Quantidade vendida......: " + venda.getQuantidade() + "\n"
-                            + "Valor...................: R$" + venda.getValor() + "\n"
-                            + "Data....................: " + venda.getData() + "\n"
-                            + "_________________________________________" + "\n" + "\n";
+        if(vendas.size() > 0){
+            String retorno = "----------------Listando Vendas----------------" + "\n" + "\n";
+            for(Venda venda : vendas) {
+                retorno = retorno + "Nome produto............: " + venda.getProduto() + "\n"
+                                + "Quantidade vendida......: " + venda.getQuantidade() + "\n"
+                                + "Valor...................: R$" + venda.getValor() + "\n"
+                                + "Data....................: " + venda.getData() + "\n"
+                                + "_________________________________________" + "\n" + "\n";
+            }
+
+            return retorno;
         }
-        
-        return retorno;
+        else {
+            return "Não possui vendas realizadas no sistema";
+        }
     }
     
 }

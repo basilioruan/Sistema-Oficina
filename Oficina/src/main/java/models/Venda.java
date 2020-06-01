@@ -5,18 +5,20 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author rmb
  */
-public class Venda {
+public class Venda implements Serializable{
     
     private String produto;
     private int quantidade;
-    private double valor;
+    private float valor;
     private String data;
     
-    public Venda(String produto, int quantidade, double valor, String data) {
+    public Venda(String produto, int quantidade, float valor, String data) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.valor = valor;
@@ -39,11 +41,11 @@ public class Venda {
         this.quantidade = quantidade;
     }
     
-    public double getValor() {
+    public float getValor() {
         return valor;
     }
     
-    public void setValor(double valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
     

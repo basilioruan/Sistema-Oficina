@@ -64,7 +64,7 @@ public class PecaController {
             return retorno;
         }
         else {
-            return "Não possui peças cadastradas no sistema";
+            return null;
         }
     }
     
@@ -147,9 +147,10 @@ public class PecaController {
     public String exibirSemEstoque() {
         if(pecas.size() > 0) {
             String retorno = "----------------Listando Peças----------------" + "\n" + "\n";
-
+            boolean condicao = false;
             for (Peca peca : pecas) {
                 if(peca.getQuantidade() == 0) {
+                    condicao = true;
                     retorno = retorno + "Nome....................: " + peca.getNome() + "\n"
                             + "Quantidade em estoque...: " + peca.getQuantidade() + "\n"
                             + "Preço...................: R$" + peca.getPreco() + "\n"
@@ -160,10 +161,15 @@ public class PecaController {
                 }
             }
             
-            return retorno;
+            if(condicao == false) {
+                return "n";
+            }
+            else{
+                return retorno;
+            }
         }
         else {
-            return "Não possui peças cadastradas no sistema";
+            return null;
         }
     }
     
@@ -186,6 +192,7 @@ public class PecaController {
                 break;
             }
         }
+        
         
         pecaDAO.salvarArquivo(pecas);
         

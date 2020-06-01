@@ -5,6 +5,9 @@
  */
 package controller;
 
+import DAO.ClienteDAO;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import models.Cliente;
 
@@ -15,24 +18,33 @@ import models.Cliente;
 public class ClienteController {
     
     private static ArrayList<Cliente> clientes;
+    private ClienteDAO clienteDAO;
     
-    public ClienteController() {
+    public ClienteController() throws IOException, ClassNotFoundException {
         clientes = new ArrayList<Cliente>();
+        clienteDAO = new ClienteDAO();
+        File arquivo = new File("clientes.bin");
+        if(arquivo.exists()){
+            clientes = clienteDAO.buscarArquivo();
+        }
     }
     
-    public String cadastrarCliente(String nome, String cpf, String email, String telefone, double saldoDevedor, String data) {
-        Cliente cliente = new Cliente(nome, cpf, email, telefone, saldoDevedor, data);
+    public boolean cadastrarCliente(String nome, String cpf, String email, String telefone, float saldoDevedor, float saldoPago, float total, String data) {
+        Cliente cliente = new Cliente(nome, cpf, email, telefone, saldoDevedor, saldoPago, total, data);
         clientes.add(cliente);
-        return "Cliente cadastrado com sucesso!";
+        return clienteDAO.salvarArquivo(clientes);
+        
     }
     
     public String buscarCliente(String cpf) {
         for (Cliente cliente : clientes) {
             if(cliente.getCpf().equals(cpf)){
-                String retorno = "Nome....................: " + cliente.getNome() + "\n"
+                String retorno = "\n" + "Nome....................: " + cliente.getNome() + "\n"
                                 + "CPF.....................: " + cliente.getCpf()+ "\n"
                                 + "E-mail..................: " + cliente.getEmail() + "\n"
                                 + "Telefone................: " + cliente.getTelefone()+ "\n"
+                                + "Total...................: " + cliente.getTotal() + "\n"
+                                + "Saldo pago..............: " + cliente.getSaldoPago() + "\n"
                                 + "Saldo devedor...........: " + cliente.getSaldoDevedor() + "\n"
                                 + "Data de pagamento.......: " + cliente.getData() + "\n"
                                 + "_________________________________________" + "\n" + "\n";
@@ -40,20 +52,27 @@ public class ClienteController {
             }
         }
         
-        return "Cliente não encontrado";
+        return null;
     }
     
     public String exibirClientes(){
-        String retorno = "----------------Listando Clientes----------------" + "\n" + "\n";
-        for(Cliente cliente : clientes) {
-            retorno = retorno + "Nome....................: " + cliente.getNome() + "\n"
-                            + "CPF.....................: " + cliente.getCpf()+ "\n"
-                            + "E-mail..................: " + cliente.getEmail() + "\n"
-                            + "Telefone................: " + cliente.getTelefone()+ "\n"
-                            + "Saldo devedor...........: " + cliente.getSaldoDevedor() + "\n"
-                            + "Data de pagamento.......: " + cliente.getData() + "\n"
-                            + "_________________________________________" + "\n" + "\n";
+        String retorno;
+        if(clientes.size() > 0) {
+            retorno = "----------------Listando Clientes----------------" + "\n" + "\n";
+            for(Cliente cliente : clientes) {
+                retorno = retorno + "Nome....................: " + cliente.getNome() + "\n"
+                                + "CPF.....................: " + cliente.getCpf()+ "\n"
+                                + "E-mail..................: " + cliente.getEmail() + "\n"
+                                + "Telefone................: " + cliente.getTelefone()+ "\n"
+                                + "Saldo devedor...........: " + cliente.getSaldoDevedor() + "\n"
+                                + "Data de pagamento.......: " + cliente.getData() + "\n"
+                                + "_________________________________________" + "\n" + "\n";
+            }
+        }
+        else {
+            retorno = "Não possui clientes cadastrados no sistema";
         }
         return retorno;
     }
+    
 }

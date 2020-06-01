@@ -20,7 +20,7 @@ public class ClienteView {
     Scanner ler = new Scanner(System.in);
     private static ClienteController controller;
     
-    public ClienteView() {
+    public ClienteView() throws IOException, ClassNotFoundException {
         controller = new ClienteController();
     }
     
@@ -73,15 +73,19 @@ public class ClienteView {
         System.out.print("Digite o telefone: ");
         String telefone = ler.nextLine();
         
+        System.out.print("Digite o valor pago: ");
+        float pago = ler.nextFloat();
+        Helper.clearBuffer(ler);
+        
         System.out.print("Digite o saldo restante: ");
-        double saldo = ler.nextDouble();
+        float saldo = ler.nextFloat();
         Helper.clearBuffer(ler);
         
         String data = "29/06/2020";
         
-        String retorno = controller.cadastrarCliente(nome, cpf, email, telefone, saldo, data);
         
-        System.out.println(retorno);
+        
+        
 
         System.out.print("Pressione ENTER para continuar");
         ler.nextLine();

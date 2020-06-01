@@ -5,25 +5,31 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author rmb
  */
-public class Cliente {
+public class Cliente implements Serializable{
     
     private String nome;
     private String cpf;
     private String email;
     private String telefone;
-    private double saldoDevedor;
+    private float saldoDevedor;
+    private float saldoPago;
+    private float total;
     private String data;
     
-    public Cliente (String nome, String cpf, String email, String telefone, double saldoDevedor, String data) {
+    public Cliente (String nome, String cpf, String email, String telefone, float saldoDevedor, float saldoPago, float total, String data) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
         this.saldoDevedor = saldoDevedor;
+        this.saldoPago = saldoPago;
+        this.total = total;
         this.data = data;
     }
     
@@ -59,8 +65,16 @@ public class Cliente {
         this.telefone = telefone;
     } 
     
-    public double getSaldoDevedor() {
+    public float getSaldoDevedor() {
         return saldoDevedor;
+    }
+    
+    public float getSaldoPago() {
+        return saldoPago;
+    }
+    
+    public float getTotal() {
+        return total;
     }
     
     public String getData() {
