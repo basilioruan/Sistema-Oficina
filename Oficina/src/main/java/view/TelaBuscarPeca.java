@@ -7,21 +7,46 @@ package view;
 
 import controller.PecaController;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.Peca;
 
 /**
  *
  * @author rmb
  */
 public class TelaBuscarPeca extends javax.swing.JFrame {
-
+    
+    private final DefaultTableModel tabelaPecas;
+    private PecaController controller;
     /**
      * Creates new form TelaBuscarPeca
      */
     public TelaBuscarPeca() {
         initComponents();
+        tabelaPecas = (DefaultTableModel) jtPeca.getModel();
+        try {
+            controller = new PecaController();
+            int tamanho = tabelaPecas.getRowCount();
+            for (int i=0; i<tamanho; i++) {
+                tabelaPecas.removeRow(0);
+            }
+
+            ArrayList<Peca> pecas = controller.getPecas();
+            if(pecas != null){
+                for (Peca peca : pecas) {
+                    Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
+                    tabelaPecas.addRow(dados);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -35,23 +60,59 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taPeca = new javax.swing.JTextArea();
-        buttonVoltar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        buttonBuscar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtPeca = new javax.swing.JTable();
+        buttonVoltar = new javax.swing.JButton();
+        buttonEditar = new javax.swing.JButton();
+        buttonRemover = new javax.swing.JButton();
+        buttonAdicionar = new javax.swing.JButton();
+        buttonCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SGO - Buscar peça");
         setResizable(false);
 
-        jLabel1.setText("Buscar peça");
+        jLabel1.setText("Gerenciador de Peças");
 
-        taPeca.setEditable(false);
-        taPeca.setColumns(20);
-        taPeca.setRows(5);
-        jScrollPane1.setViewportView(taPeca);
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabel2.setText("Buscar");
+
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNomeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNomeKeyReleased(evt);
+            }
+        });
+
+        jtPeca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Qtd", "Custo", "Venda", "Prateleira", "Local"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jtPeca);
+        if (jtPeca.getColumnModel().getColumnCount() > 0) {
+            jtPeca.getColumnModel().getColumn(0).setMinWidth(200);
+            jtPeca.getColumnModel().getColumn(1).setResizable(false);
+            jtPeca.getColumnModel().getColumn(2).setResizable(false);
+            jtPeca.getColumnModel().getColumn(3).setResizable(false);
+            jtPeca.getColumnModel().getColumn(4).setResizable(false);
+            jtPeca.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         buttonVoltar.setText("Voltar");
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -60,12 +121,43 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Nome");
-
-        buttonBuscar.setText("Buscar");
-        buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        buttonEditar.setBackground(new java.awt.Color(255, 158, 58));
+        buttonEditar.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        buttonEditar.setForeground(new java.awt.Color(254, 254, 254));
+        buttonEditar.setText("Editar");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBuscarActionPerformed(evt);
+                buttonEditarActionPerformed(evt);
+            }
+        });
+
+        buttonRemover.setBackground(new java.awt.Color(219, 23, 72));
+        buttonRemover.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        buttonRemover.setForeground(new java.awt.Color(254, 254, 254));
+        buttonRemover.setText("Excluir");
+        buttonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoverActionPerformed(evt);
+            }
+        });
+
+        buttonAdicionar.setBackground(new java.awt.Color(58, 160, 255));
+        buttonAdicionar.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        buttonAdicionar.setForeground(new java.awt.Color(254, 254, 254));
+        buttonAdicionar.setText("Ad. Estoq.");
+        buttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAdicionarActionPerformed(evt);
+            }
+        });
+
+        buttonCadastrar.setBackground(new java.awt.Color(9, 215, 92));
+        buttonCadastrar.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        buttonCadastrar.setForeground(new java.awt.Color(254, 254, 254));
+        buttonCadastrar.setText("Cadastrar");
+        buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCadastrarActionPerformed(evt);
             }
         });
 
@@ -74,43 +166,49 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                    .addComponent(tfNome)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(buttonVoltar)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonBuscar)))))
+                                .addGap(136, 136, 136)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(131, 131, 131))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonVoltar)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonBuscar))
+                .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(buttonVoltar)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonEditar)
+                    .addComponent(buttonRemover)
+                    .addComponent(buttonAdicionar)
+                    .addComponent(buttonCadastrar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,13 +217,13 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,36 +232,107 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
 
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
         
+        new MenuPrincipal().setVisible(true);
+        
         dispose();
         
     }//GEN-LAST:event_buttonVoltarActionPerformed
 
-    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
+    private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
         
-        String nome = tfNome.getText();
-        
-        if(nome.equals("")) {
-            JOptionPane.showMessageDialog(null, "O nome não pode ser vazio");
+        int tamanho = tabelaPecas.getRowCount();
+        for (int i=0; i<tamanho; i++) {
+            tabelaPecas.removeRow(0);
         }
-        else {
-            try {
-                PecaController controller = new PecaController();
-                String resultado = controller.consultarPeca(nome);
-                if(resultado != null) {
-                    taPeca.append(resultado);
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Peça não encontrada no sistema!");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
+        
+        ArrayList<Peca> pecas = controller.buscarPorNome(tfNome.getText());
+        if(pecas != null){
+            for (Peca peca : pecas) {
+                Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
+                tabelaPecas.addRow(dados);
             }
+        }
+        
+    }//GEN-LAST:event_tfNomeKeyPressed
+
+    private void tfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyReleased
+        
+        int tamanho = tabelaPecas.getRowCount();
+        for (int i=0; i<tamanho; i++) {
+            tabelaPecas.removeRow(0);
             
         }
         
-    }//GEN-LAST:event_buttonBuscarActionPerformed
+        ArrayList<Peca> pecas = controller.buscarPorNome(tfNome.getText());
+        if(pecas != null){
+            for (Peca peca : pecas) {
+                Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
+                tabelaPecas.addRow(dados);
+            }
+        }
+
+    }//GEN-LAST:event_tfNomeKeyReleased
+
+    private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverActionPerformed
+        int linha = jtPeca.getSelectedRow();
+        if(linha != -1) {
+            String nome = tabelaPecas.getValueAt(linha, 0).toString();
+            if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir " + nome) == JOptionPane.YES_NO_OPTION){
+                try {
+                    controller.removerPeca(nome);
+                    tabelaPecas.removeRow(linha);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha antes de excluir");
+        }
+        
+    }//GEN-LAST:event_buttonRemoverActionPerformed
+
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+
+        int linha = jtPeca.getSelectedRow();
+        if(linha != -1) {
+            String nome = tabelaPecas.getValueAt(linha, 0).toString();
+            String quantidade = tabelaPecas.getValueAt(linha, 1).toString();
+            String custo = tabelaPecas.getValueAt(linha, 2).toString();
+            String venda = tabelaPecas.getValueAt(linha, 3).toString();
+            String prateleira = tabelaPecas.getValueAt(linha, 4).toString();
+            String local = tabelaPecas.getValueAt(linha, 5).toString();
+            new TelaEditarPeca(nome, quantidade, custo, venda, prateleira, local).setVisible(true);
+            dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha antes de editar");
+        }
+        
+    }//GEN-LAST:event_buttonEditarActionPerformed
+
+    private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
+        
+        int linha = jtPeca.getSelectedRow();
+        if(linha != -1) {
+            String nome = tabelaPecas.getValueAt(linha, 0).toString();
+            new TelaAdicionarEstoque(nome).setVisible(true);
+            dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha antes de adicionar estoque");
+        }
+
+    }//GEN-LAST:event_buttonAdicionarActionPerformed
+
+    private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+
+        new TelaCadastroPeca().setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,18 +365,22 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaBuscarPeca().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonBuscar;
+    private javax.swing.JButton buttonAdicionar;
+    private javax.swing.JButton buttonCadastrar;
+    private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonRemover;
     private javax.swing.JButton buttonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea taPeca;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtPeca;
     private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 }

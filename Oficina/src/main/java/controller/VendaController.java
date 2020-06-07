@@ -10,6 +10,8 @@ import helpers.Helper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import models.Peca;
+import models.Servico;
 import models.Venda;
 
 /**
@@ -30,47 +32,24 @@ public class VendaController {
         }
     }
     
-    public String realizarVenda(String nome, int quantidade) throws IOException, ClassNotFoundException {
+    public boolean realizarVenda(ArrayList<Peca> pecas, ArrayList<Integer> quantidades ,ArrayList<Servico> servicos, float valor) throws IOException, ClassNotFoundException {
         PecaController pecaController = new PecaController();
+       
+        Venda venda = new Venda(pecas, quantidades, servicos, valor, Helper.gerarData());
+        vendas.add(venda);
+        vendaDAO.salvarArquivo(vendas);
         
-        float resultado = pecaController.realizarVenda(nome, quantidade);
-        
-        if(resultado == 0) {
-            return("Produto não encontrado no sistema");
+        int cont = 0;
+        for (Peca peca : pecas) {
+            pecaController.realizarVenda(peca.getNome(), quantidades.get(cont));
+            cont++;
         }
         
-        else if(resultado == -1) {
-            return("A quantidade no estoque é menor do que a quantidade a ser vendida");
-        }
-        
-        else if(resultado == -2) {
-            return("Produto sem estoque");
-        }
-        
-        else {
-            Venda venda = new Venda(nome, quantidade, resultado, Helper.gerarData());
-            vendas.add(venda);
-            vendaDAO.salvarArquivo(vendas);
-            return("Venda realizada com sucesso!");
-        }
+        return true;
     }
     
-    public String exibirVendas() {
-        if(vendas.size() > 0){
-            String retorno = "----------------Listando Vendas----------------" + "\n" + "\n";
-            for(Venda venda : vendas) {
-                retorno = retorno + "Nome produto............: " + venda.getProduto() + "\n"
-                                + "Quantidade vendida......: " + venda.getQuantidade() + "\n"
-                                + "Valor...................: R$" + venda.getValor() + "\n"
-                                + "Data....................: " + venda.getData() + "\n"
-                                + "_________________________________________" + "\n" + "\n";
-            }
-
-            return retorno;
-        }
-        else {
-            return "Não possui vendas realizadas no sistema";
-        }
+    public ArrayList<Venda> getVendas() {
+        return vendas;
     }
     
 }

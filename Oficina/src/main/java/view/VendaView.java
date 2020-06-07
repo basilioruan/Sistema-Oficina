@@ -65,16 +65,16 @@ public class VendaView {
         int quantidade = ler.nextInt();
         Helper.clearBuffer(ler);
         
-        String retorno = controller.realizarVenda(nome, quantidade);
+        //String retorno = controller.realizarVenda(nome, quantidade);
         
-        System.out.println(retorno);
+        //System.out.println(retorno);
 
         System.out.print("Pressione ENTER para continuar");
         ler.nextLine();
     }
     
     public void exibirVendas() {
-        System.out.println(controller.exibirVendas());
+        //System.out.println(controller.exibirVendas());
         System.out.print("Pressione ENTER para continuar");
         ler.nextLine();
     }

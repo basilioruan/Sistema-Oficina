@@ -113,6 +113,7 @@ public class MenuVendasView extends javax.swing.JFrame {
     private void ButtonRealizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRealizarVendaActionPerformed
 
         new TelaRealizarVenda().setVisible(true);
+        dispose();
 
     }//GEN-LAST:event_ButtonRealizarVendaActionPerformed
 

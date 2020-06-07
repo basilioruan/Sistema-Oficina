@@ -149,28 +149,7 @@ public class TelaRemoverPeca extends javax.swing.JFrame {
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
 
-        String nome = tfNome.getText();
-
-        if(nome.equals("")) {
-            JOptionPane.showMessageDialog(null, "O nome não pode ser vazio");
-        }
-        else {
-            try {
-                PecaController controller = new PecaController();
-                String resultado = controller.consultarPeca(nome);
-                if(resultado != null) {
-                    taPeca.append(resultado);
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Peça não encontrada no sistema!");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaBuscarPeca.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
+      
 
     }//GEN-LAST:event_buttonBuscarActionPerformed
 

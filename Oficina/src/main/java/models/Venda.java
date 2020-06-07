@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,32 +14,30 @@ import java.io.Serializable;
  */
 public class Venda implements Serializable{
     
-    private String produto;
-    private int quantidade;
+    private ArrayList<Peca> produtos;
+    private ArrayList<Integer> quantidades;
+    private ArrayList<Servico> servicos;
     private float valor;
     private String data;
     
-    public Venda(String produto, int quantidade, float valor, String data) {
-        this.produto = produto;
-        this.quantidade = quantidade;
+    public Venda(ArrayList<Peca> produtos, ArrayList<Integer> quantidades, ArrayList<Servico> servicos, float valor, String data) {
+        this.produtos = produtos;
+        this.quantidades = quantidades;
+        this.servicos = servicos;
         this.valor = valor;
         this.data = data;
     }
     
-    public String getProduto() {
-        return produto;
+    public ArrayList<Peca> getProdutos() {
+        return produtos;
     }
     
-    public void setProduto(String produto) {
-        this.produto = produto;
+    public ArrayList<Integer> getQuantidades() {
+        return quantidades;
     }
     
-    public int getQuantidade() {
-        return quantidade;
-    }
-    
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setProduto(ArrayList<Peca> produto) {
+        this.produtos = produtos;
     }
     
     public float getValor() {

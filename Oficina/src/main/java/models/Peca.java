@@ -13,28 +13,24 @@ import java.io.Serializable;
  */
 public class Peca implements Serializable{
     
-    private int id;
     private String nome;
     private int quantidade;
-    private float preco;
+    private float precoCusto;
+    private float precoVenda;
     private String data;
     private String prateleira;
     private String local;
     
     public Peca() { }
     
-    public Peca(int id, String nome, int quantidade, float preco, String data, String prateleira, String local) {
-        this.id = id;
+    public Peca(String nome, int quantidade, float precoCusto, float precoVenda, String data, String prateleira, String local) {
         this.nome = nome;
         this.quantidade = quantidade;
-        this.preco = preco;
+        this.precoCusto = precoCusto;
+        this.precoVenda = precoVenda;
         this.data = data;
         this.prateleira = prateleira;
         this.local = local;
-    }
-    
-    public int getId(){
-        return id;
     }
     
     public String getNome(){
@@ -53,12 +49,20 @@ public class Peca implements Serializable{
         this.quantidade = quantidade;
     } 
     
-    public float getPreco() {
-        return preco;
+    public float getPrecoCusto() {
+        return precoCusto;
     }
     
-    public void setPreco(float preco) {
-        this.preco = preco;
+    public void setPrecoCusto(float precoCusto) {
+        this.precoCusto = precoCusto;
+    }
+    
+    public float getPrecoVenda() {
+        return precoVenda;
+    }
+    
+    public void setPrecoVenda(float precoVenda) {
+        this.precoVenda = precoVenda;
     }
     
     public String getData() {

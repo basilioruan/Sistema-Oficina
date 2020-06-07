@@ -17,13 +17,26 @@ import javax.swing.JOptionPane;
  *
  * @author rmb
  */
-public class TelaCadastroPeca extends javax.swing.JFrame {
-
+public class TelaEditarPeca extends javax.swing.JFrame {
+    private String antigoNome;
     /**
      * Creates new form TelaCadastroPeca
+     * @param nome
+     * @param quantidade
+     * @param custo
+     * @param valor
+     * @param prateleira
+     * @param local
      */
-    public TelaCadastroPeca() {
+    public TelaEditarPeca(String nome, String quantidade, String custo, String valor, String prateleira, String local) {
         initComponents();
+        antigoNome = nome;
+        tfNome.setText(nome);
+        tfQuantidade.setText(quantidade);
+        tfPreco.setText(custo);
+        tfVenda.setText(valor);
+        tfPrateleira.setText(prateleira);
+        tfLocal.setText(local);
         tfPercentual.setText("");
     }
 
@@ -85,6 +98,12 @@ public class TelaCadastroPeca extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         jLabel5.setText("Local");
+
+        tfLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfLocalActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("R$");
 
@@ -256,7 +275,7 @@ public class TelaCadastroPeca extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         dispose();
-        
+        new TelaBuscarPeca().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -279,7 +298,7 @@ public class TelaCadastroPeca extends javax.swing.JFrame {
                 char[] unidades = quantidade.toCharArray();
                 
                 for (int i=0; i<quantidade.length(); i++) {
-                    if(quantidade.matches("[a-z]*") || quantidade.matches("[A-Z]*")) {
+                    if(quantidade.matches("[a-z]+") || quantidade.matches("[A-Z]+")) {
                         erro = true;
                     }
                 }
@@ -326,39 +345,36 @@ public class TelaCadastroPeca extends javax.swing.JFrame {
                         else{
                             String porcentagem = tfPercentual.getText();
                             
-                            if(porcentagem.equals("")){
-                                JOptionPane.showMessageDialog(null, "O percentual de lucro não pode ser vazio");
+                            
+                            if(porcentagem.matches("[A-Z]+") || porcentagem.matches("[a-z]+")) {
+                                JOptionPane.showMessageDialog(null, "Digite apenas números no percentual de lucro");
                             }
-                            else{
-                                if(porcentagem.matches("[A-Z]*") || porcentagem.matches("[a-z]*")) {
-                                    JOptionPane.showMessageDialog(null, "Digite apenas números no percentual de lucro");
-                                }
-                                else {
-                                    float precoCusto = Float.parseFloat(preco);
-                                    float precoVenda = Float.parseFloat(tfVenda.getText());
-                                    String prateleira = tfPrateleira.getText();
-                                    String local = tfLocal.getText();
-                                    String data = Helper.gerarData();
+                            else {
+                                float precoCusto = Float.parseFloat(preco);
+                                float precoVenda = Float.parseFloat(tfVenda.getText());
+                                String prateleira = tfPrateleira.getText();
+                                String local = tfLocal.getText();
+                                String data = Helper.gerarData();
 
-                                    try {
-                                        PecaController controller = new PecaController();
-                                        if(controller.inserir(nome, quantidadeConvertida, precoCusto, precoVenda, data, prateleira, local)){
-                                            JOptionPane.showMessageDialog(null, "Produto salvo com sucesso!");
-                                            dispose();
-                                            new TelaBuscarPeca().setVisible(true);
-                                        }
-                                        else {
-                                            JOptionPane.showMessageDialog(null, "Erro ao salvar produto!");
-                                            dispose();
-                                            new TelaBuscarPeca().setVisible(true);
-                                        }
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(TelaCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
-                                    } catch (ClassNotFoundException ex) {
-                                        Logger.getLogger(TelaCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
+                                try {
+                                    PecaController controller = new PecaController();
+                                    if(controller.editarPeca(antigoNome, nome, quantidadeConvertida, precoCusto, precoVenda, data, prateleira, local)){
+                                        JOptionPane.showMessageDialog(null, "Peça atualizada com sucesso!");
+                                        dispose();
+                                        new TelaBuscarPeca().setVisible(true);
                                     }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "Erro ao editar peça!");
+                                        dispose();
+                                        new TelaBuscarPeca().setVisible(true);
+                                    }
+                                } catch (IOException ex) {
+                                    Logger.getLogger(TelaEditarPeca.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (ClassNotFoundException ex) {
+                                    Logger.getLogger(TelaEditarPeca.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -432,42 +448,12 @@ public class TelaCadastroPeca extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_tfPercentualKeyReleased
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCadastroPeca().setVisible(true);
-            }
-        });
-    }
+    private void tfLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLocalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfLocalActionPerformed
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

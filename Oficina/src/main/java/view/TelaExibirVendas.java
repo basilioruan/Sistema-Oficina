@@ -109,23 +109,7 @@ public class TelaExibirVendas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        try {
-            VendaController controller = new VendaController();
-
-            String resultado = controller.exibirVendas();
-
-            if(resultado != null) {
-                taVenda.setText(resultado);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Não possui vendas cadastradas no sistema");
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(TelaExibirTodas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaExibirTodas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -242,6 +242,9 @@
         <Component class="javax.swing.JTextField" name="tfPrateleira">
         </Component>
         <Component class="javax.swing.JTextField" name="tfLocal">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfLocalActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>

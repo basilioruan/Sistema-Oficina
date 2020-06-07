@@ -7,9 +7,12 @@ package view;
 
 import controller.PecaController;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.Peca;
 
 /**
  *
@@ -20,8 +23,19 @@ public class TelaExibirSemEstoque extends javax.swing.JFrame {
     /**
      * Creates new form TelaExibirSemEstoque
      */
-    public TelaExibirSemEstoque() {
+    public TelaExibirSemEstoque() throws IOException, ClassNotFoundException {
         initComponents();
+        
+        PecaController controller = new PecaController();
+        
+        DefaultTableModel tabelaPecas = (DefaultTableModel) jtPeca.getModel();
+        ArrayList<Peca> pecas = controller.getSemEstoque();
+        
+        for (Peca peca : pecas) {
+            Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
+            tabelaPecas.addRow(dados);
+        }
+        
     }
 
     /**
@@ -34,21 +48,16 @@ public class TelaExibirSemEstoque extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taPeca = new javax.swing.JTextArea();
         buttonVoltar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtPeca = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SGO - Listar Sem Estoque");
         setResizable(false);
 
         jLabel1.setText("Listar peças sem estoque");
-
-        taPeca.setEditable(false);
-        taPeca.setColumns(20);
-        taPeca.setRows(5);
-        jScrollPane1.setViewportView(taPeca);
 
         buttonVoltar.setText("Voltar");
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -64,34 +73,50 @@ public class TelaExibirSemEstoque extends javax.swing.JFrame {
             }
         });
 
+        jtPeca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Qtd", "Custo", "Venda", "Prateleira", "Local"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jtPeca);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(buttonVoltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 410, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonVoltar)
                     .addComponent(jButton1))
@@ -108,29 +133,6 @@ public class TelaExibirSemEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonVoltarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        try {
-            PecaController controller = new PecaController();
-
-            String resultado = controller.exibirSemEstoque();
-
-            if(resultado != null) {
-                if(resultado.equals("n")){
-                    JOptionPane.showMessageDialog(null, "Todas as peças estão com estoque");
-                }
-                else{
-                    taPeca.setText(resultado);
-                }
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Não possui peças cadastradas no sistema");
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(TelaExibirTodas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaExibirTodas.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -164,7 +166,13 @@ public class TelaExibirSemEstoque extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaExibirSemEstoque().setVisible(true);
+                try {
+                    new TelaExibirSemEstoque().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaExibirSemEstoque.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TelaExibirSemEstoque.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -173,7 +181,7 @@ public class TelaExibirSemEstoque extends javax.swing.JFrame {
     private javax.swing.JButton buttonVoltar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea taPeca;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtPeca;
     // End of variables declaration//GEN-END:variables
 }

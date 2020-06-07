@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rmb
@@ -177,19 +181,31 @@ public class MenuPecasView extends javax.swing.JFrame {
 
     private void ButtonAdicionarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdicionarEstoqueActionPerformed
         
-        new TelaAdicionarEstoque().setVisible(true);
+        //new TelaAdicionarEstoque().setVisible(true);
         
     }//GEN-LAST:event_ButtonAdicionarEstoqueActionPerformed
 
     private void ButtonListarTodasPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListarTodasPecasActionPerformed
         
-        new TelaExibirTodas().setVisible(true);
+        try {
+            new TelaExibirTodas().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPecasView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPecasView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_ButtonListarTodasPecasActionPerformed
 
     private void ButtonPecasEmFaltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPecasEmFaltaActionPerformed
         
-        new TelaExibirSemEstoque().setVisible(true);
+        try {
+            new TelaExibirSemEstoque().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPecasView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPecasView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_ButtonPecasEmFaltaActionPerformed
 

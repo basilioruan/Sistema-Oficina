@@ -42,6 +42,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGO - Menu Principal");
+        setPreferredSize(new java.awt.Dimension(1000, 550));
         setResizable(false);
 
         jLabel1.setText("SGO");
@@ -82,7 +83,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(484, 484, 484)
                         .addComponent(jLabel1)))
-                .addGap(0, 253, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,9 +105,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void ButtonPeçasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPeçasActionPerformed
         
-        MenuPecasView pecaView = new MenuPecasView();
-        
-        pecaView.setVisible(true);
+        new TelaBuscarPeca().setVisible(true);
         
         dispose();
         

@@ -99,7 +99,7 @@ public class PecaView {
         
         String data = Helper.gerarData();
         
-        if(controller.inserir(nome, quantidade, preco, data, prateleira, local)){
+        /*if(controller.inserir(nome, quantidade, preco, data, prateleira, local)){
             System.out.println("Peça cadastrada com sucesso!");
             System.out.print("Pressione Enter para continuar");
             ler.nextLine();
@@ -108,7 +108,7 @@ public class PecaView {
             System.out.println("Erro ao cadastrar a peça!");
             System.out.print("Pressione Enter para continuar");
             ler.nextLine();
-        }
+        }*/
     }
     
     public void imprimir() throws IOException, ClassNotFoundException {
@@ -120,15 +120,15 @@ public class PecaView {
     public void consultarPeca() throws IOException, ClassNotFoundException {
         System.out.print("Digite o nome da peça que deseja buscar: ");
         String nome = ler.nextLine();
-        String peca = (controller.consultarPeca(nome));
+        //String peca = (controller.consultarPeca(nome));
         
-        if(peca != null) {
+        /*if(peca != null) {
             System.out.println("\n" + "--------------Peça buscada--------------" + "\n");
             System.out.println(peca);
         }
         else {
             System.out.println("A peça (" + nome + ") não foi encontrada no sistema");
-        }
+        }*/
             
         System.out.print("Pressione Enter para continuar");
         ler.nextLine();
@@ -153,7 +153,7 @@ public class PecaView {
     public void editarPeca() throws IOException, IOException, ClassNotFoundException {
         System.out.print("Digite o nome da peça que deseja editar: ");
         String nomeAntigo = ler.nextLine();
-        String peca = controller.consultarPeca(nomeAntigo);
+        /*String peca = controller.consultarPeca(nomeAntigo);
         if(peca != null) {
             System.out.println("\n" + "--------------Dados anteriores--------------" + "\n");
             System.out.println(peca);
@@ -179,7 +179,7 @@ public class PecaView {
             
             String data = Helper.gerarData();
             
-            if(controller.editarPeca(nomeAntigo, nome, quantidade, preco, data, prateleira, local)){
+            /*if(controller.editarPeca(nomeAntigo, nome, quantidade, preco, data, prateleira, local)){
                 System.out.println(nome + " editada com sucesso!");
                 System.out.print("Pressione Enter para continuar");
                 ler.nextLine();
@@ -189,13 +189,13 @@ public class PecaView {
             System.out.println("A peça (" + nomeAntigo + ") não foi encontrada no sistema");
             System.out.print("Pressione Enter para continuar");
             ler.nextLine();
-        }
+        }*/
     }
     
     public void adicionarEstoque() throws IOException, ClassNotFoundException {
         System.out.print("Digite o nome da peça que deseja editar: ");
         String nome = ler.nextLine();
-        String peca = controller.consultarPeca(nome);
+        /*String peca = controller.consultarPeca(nome);
         if(peca != null) {
             System.out.print("Digite a quantidade que chegou da peça: ");
             int quantidade = ler.nextInt();
@@ -211,13 +211,11 @@ public class PecaView {
             System.out.println("A peça (" + nome + ") não foi encontrada no sistema");
             System.out.print("Pressione Enter para continuar");
             ler.nextLine();
-        }
+        }*/
     }
     
     public void exibirSemEstoque() {
-        System.out.println(controller.exibirSemEstoque());
-        System.out.print("Pressione Enter para continuar");
-        ler.nextLine();
+        
     }
     
 }
