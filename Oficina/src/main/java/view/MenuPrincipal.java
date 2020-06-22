@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +21,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        ButtonPeças.setIcon(new javax.swing.ImageIcon(("/view/icons_1/wrench_orange.png")));
     }
 
     /**
@@ -32,9 +36,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
-        ButtonClientes = new javax.swing.JButton();
-        ButtonPeças = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        buttonCaixa = new javax.swing.JButton();
+        buttonCaderneta = new javax.swing.JButton();
         ButtonVendas = new javax.swing.JButton();
+        ButtonPeças = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -42,61 +48,102 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGO - Menu Principal");
-        setPreferredSize(new java.awt.Dimension(1000, 550));
+        setBackground(new java.awt.Color(0, 0, 0));
         setResizable(false);
 
-        jLabel1.setText("SGO");
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("JUNINHO MOTO PEÇAS E SERVIÇOS");
 
-        ButtonClientes.setText("Clientes");
-        ButtonClientes.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setMinimumSize(new java.awt.Dimension(950, 570));
+
+        buttonCaixa.setBackground(new java.awt.Color(0, 204, 204));
+        buttonCaixa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCaixa.setText("Gerenciador Financeiro");
+        buttonCaixa.setFocusable(false);
+        buttonCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonClientesActionPerformed(evt);
+                buttonCaixaActionPerformed(evt);
             }
         });
 
-        ButtonPeças.setText("Peças");
-        ButtonPeças.addActionListener(new java.awt.event.ActionListener() {
+        buttonCaderneta.setBackground(new java.awt.Color(0, 204, 204));
+        buttonCaderneta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonCaderneta.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCaderneta.setText("Gerenciador de Caderneta");
+        buttonCaderneta.setFocusable(false);
+        buttonCaderneta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonPeçasActionPerformed(evt);
+                buttonCadernetaActionPerformed(evt);
             }
         });
 
-        ButtonVendas.setText("Vendas");
+        ButtonVendas.setBackground(new java.awt.Color(0, 204, 204));
+        ButtonVendas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ButtonVendas.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonVendas.setText("Gerenciador de Vendas / Ordem de Serviço");
+        ButtonVendas.setFocusable(false);
         ButtonVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonVendasActionPerformed(evt);
             }
         });
 
+        ButtonPeças.setBackground(new java.awt.Color(0, 204, 204));
+        ButtonPeças.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ButtonPeças.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonPeças.setText("Gerenciador de Peças");
+        ButtonPeças.setFocusable(false);
+        ButtonPeças.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonPeçasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(249, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonPeças, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCaderneta, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(199, 199, 199))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addComponent(ButtonPeças, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonCaderneta, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButtonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButtonVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButtonPeças, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(484, 484, 484)
-                        .addComponent(jLabel1)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(169, 169, 169)
+                .addComponent(jLabel1))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(89, 89, 89)
-                .addComponent(ButtonPeças, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                .addGap(38, 38, 38)
-                .addComponent(ButtonVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                .addGap(39, 39, 39)
-                .addComponent(ButtonClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                .addGap(78, 78, 78))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -113,23 +160,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void ButtonVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonVendasActionPerformed
         
-        MenuVendasView vendaView = new MenuVendasView();
-        
-        vendaView.setVisible(true);
+        new TelaRealizarVenda().setVisible(true);
         
         dispose();
         
     }//GEN-LAST:event_ButtonVendasActionPerformed
 
-    private void ButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonClientesActionPerformed
-        
-        MenuClientesView clientesView = new MenuClientesView();
-        
-        clientesView.setVisible(true);
-        
+    private void buttonCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCaixaActionPerformed
+
+        new TelaSenhaCaixa().setVisible(true);
         dispose();
-        
-    }//GEN-LAST:event_ButtonClientesActionPerformed
+
+    }//GEN-LAST:event_buttonCaixaActionPerformed
+
+    private void buttonCadernetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadernetaActionPerformed
+
+        try {
+            new TelaExibirCadernetas().setVisible(true);
+            dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_buttonCadernetaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,7 +197,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Dark Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -167,11 +222,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonClientes;
     private javax.swing.JButton ButtonPeças;
     private javax.swing.JButton ButtonVendas;
+    private javax.swing.JButton buttonCaderneta;
+    private javax.swing.JButton buttonCaixa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

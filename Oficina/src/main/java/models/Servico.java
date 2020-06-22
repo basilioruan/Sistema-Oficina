@@ -15,16 +15,16 @@ public class Servico implements Serializable{
     
     private String servico;
     private float valor;
-    private String marca;
+    private String cliente;
+    private String fabricante;
     private String ano;
     private String modelo;
-    private String cliente;
     private String data;
     
-    public Servico(String servico, String cliente, float valor, String marca, String ano, String modelo, String data) {
+    public Servico(String servico, String cliente, float valor, String fabricante, String ano, String modelo, String data) {
         this.servico = servico;
         this.valor = valor;
-        this.marca = marca;
+        this.fabricante = fabricante;
         this.ano = ano;
         this.modelo = modelo;
         this.cliente = cliente;
@@ -39,8 +39,8 @@ public class Servico implements Serializable{
         return valor;
     }
     
-    public String getMarca(){
-        return marca;
+    public String getFabricante(){
+        return fabricante;
     }
     
     public String getAno(){

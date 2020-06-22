@@ -49,7 +49,6 @@ public class TelaAdicionarEstoque extends javax.swing.JFrame {
         jLabel2.setText("Produto");
 
         tfNome.setEditable(false);
-        tfNome.setEnabled(false);
 
         buttonVoltar.setText("Voltar");
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {

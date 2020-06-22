@@ -20,8 +20,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroCliente
      */
-    public TelaCadastroCliente() {
+    private TelaCadastroCaderneta caderneta;
+    public TelaCadastroCliente(TelaCadastroCaderneta tela) {
         initComponents();
+        caderneta = tela;
     }
 
     /**
@@ -33,338 +35,203 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        tfTotal = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        buttonVoltar = new javax.swing.JButton();
+        buttonCadastrarCliente = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tfNome = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tfCpf = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        tfNome = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tfCpf = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         tfTelefone = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        tfPago = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        tfData = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SGO - Cadastrar Cliente");
         setResizable(false);
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonVoltar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        buttonVoltar.setText("Voltar");
+        buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonVoltarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonCadastrarCliente.setBackground(new java.awt.Color(0, 204, 204));
+        buttonCadastrarCliente.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        buttonCadastrarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCadastrarCliente.setText("Cadastrar Cliente");
+        buttonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonCadastrarClienteActionPerformed(evt);
             }
         });
 
-        jLabel8.setText("R$");
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel3.setText("Valor pago *");
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Nome");
 
-        jLabel2.setText("E-mail");
+        tfNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        tfNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNomeActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("CPF");
 
-        jLabel1.setText("Nome *");
+        tfCpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel6.setText("Cadastrar cliente");
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("E-mail");
 
-        jLabel4.setText("CPF *");
+        tfEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel5.setText("Telefone *");
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Telefone");
 
-        jLabel7.setText("Valor total *");
+        tfTelefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel9.setText("R$");
-
-        jLabel10.setText("Data de pagamento *");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(6, 6, 6)
+                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(6, 6, 6)
+                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(6, 6, 6)
+                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(113, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(4, 4, 4)
-                                .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(26, 26, 26))
-                            .addComponent(jLabel7)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(4, 4, 4)
-                                .addComponent(tfPago, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addComponent(buttonVoltar))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(170, 211, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfEmail)
-                            .addComponent(tfNome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(tfCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfTelefone, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel10)
-                                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))
-                        .addContainerGap())))
+                .addGap(208, 208, 208)
+                .addComponent(buttonCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(tfPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(6, 6, 6))
+                .addGap(11, 11, 11)
+                .addComponent(buttonVoltar))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(379, 379, 379)
+                .addComponent(buttonCadastrarCliente))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        String nome = tfNome.getText();
-        
-        if(nome.equals("")) {
-            JOptionPane.showMessageDialog(null, "O nome não pode ser vazio");
-        }
-        else {
-            String email = tfEmail.getText();
-            
-            String cpf = tfCpf.getText();
-            
-            if(cpf.equals("")){
-                JOptionPane.showMessageDialog(null, "O CPF não pode ser vazio");
-            }
-            else{
-                if(cpf.matches("[a-z]*") || cpf.matches("[A-Z]*") || cpf.matches("[.]*") || cpf.matches("[-]*")) {
-                    JOptionPane.showMessageDialog(null, "Digite somente números no cpf");
-                }
-                else {
-                    String telefone = tfTelefone.getText();
-                    
-                    if(telefone.equals("")) {
-                        JOptionPane.showMessageDialog(null, "O telefone não pode ser vazio");
-                    }
-                    else {
-                        if(telefone.matches("[a-z]*") || telefone.matches("[A-Z]*") || telefone.matches("[.]*") || telefone.matches("[-]*") || telefone.matches("[(]*[)]*")) {
-                            JOptionPane.showMessageDialog(null, "Digite somente números no telefone");
-                        }
-                        else {
-                            String total = tfTotal.getText();
-                            String pago = tfPago.getText();
-                            if(total.equals("") || pago.equals("")) {
-                                JOptionPane.showMessageDialog(null, "Os valores total e pago não pode ser vazio");
-                            }
-                            else {
-                                if(total.matches("[A-Z]*[a-z]*") || pago.matches("[A-Z]*[a-z]*")) {
-                                    JOptionPane.showMessageDialog(null, "Digite apenas números nos valores (ex: 99,99)");
-                                }
-                                else {
-                                    if(total.matches("[,]")) {
-                                        int tamanho = total.length();
-                                        char[] unidades = total.toCharArray();
-                                        total = "";
-                                        for (int i=0; i<tamanho; i++) {
-                                            if(unidades[i] == ',') {
-                                                total = total + ".";
-                                            }
-
-                                            else {
-                                                total = total + unidades[i];
-                                            }
-                                        }
-                                    }
-                                    if(pago.matches("[,]")) {
-                                        int tamanho = pago.length();
-                                        char[] unidades = pago.toCharArray();
-                                        pago = "";
-                                        for (int i=0; i<tamanho; i++) {
-                                            if(unidades[i] == ',') {
-                                                pago = pago + ".";
-                                            }
-
-                                            else {
-                                                pago = pago + unidades[i];
-                                            }
-                                        }
-                                    }
-                                    
-                                    float totalConvertido = Float.parseFloat(total);
-                                    float pagoConvertido = Float.parseFloat(pago);
-                                    float restante = totalConvertido - pagoConvertido;
-                                    String data = tfData.getText();
-                                    
-                                    if(data.equals("")) {
-                                        JOptionPane.showMessageDialog(null, "A data de pagamento não pode ser vazia");
-                                    }
-                                    else {
-                                        try {
-                                            ClienteController controller = new ClienteController();
-                                            if(controller.cadastrarCliente(nome, cpf, email, telefone, restante, pagoConvertido, totalConvertido, data)) {
-                                                JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
-                                            }
-                                            else {
-                                                JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente!");
-                                            }
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-                                        } catch (ClassNotFoundException ex) {
-                                            Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
 
         dispose();
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buttonVoltarActionPerformed
 
-    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
-  
+    private void buttonCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarClienteActionPerformed
+
+        String nome = tfNome.getText().toLowerCase();
         
-    }//GEN-LAST:event_tfNomeActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+        if(!nome.equals("")){
+            
+            String cpf = tfCpf.getText();
+            if(!cpf.equals("")){
+                if(!cpf.matches("[a-zA-Z]*") || !cpf.matches("[!@#$%*()_+-=']*")){
+                    String email = tfEmail.getText();
+                    
+                    String telefone = tfTelefone.getText();
+                    if(!telefone.equals("")){
+                        if(telefone.matches("[a-zA-Z]*") || telefone.matches("[!@#$%*()_+-=']*")){
+                            try {
+                                ClienteController clienteController = new ClienteController();
+                                clienteController.cadastrarCliente(nome, cpf, email, telefone, email);
+                                Object[] dados = {cpf, nome, telefone, email};
+                                caderneta.tabelaClientes.addRow(dados);
+                                caderneta.listarClientes();
+                                dispose();
+                            } catch (IOException ex) {
+                                Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (ClassNotFoundException ex) {
+                                Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Insira somente números no telefone");
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Insira o telefone");
+                    }
+                    
                 }
+                else{
+                    JOptionPane.showMessageDialog(null, "Insira somente números no CPF");
+                }
+                
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            else{
+                JOptionPane.showMessageDialog(null, "Insira o CPF");
+            }
+            
         }
-        //</editor-fold>
+        else{
+            JOptionPane.showMessageDialog(null, "Insira o nome");
+        }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCadastroCliente().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_buttonCadastrarClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonCadastrarCliente;
+    private javax.swing.JButton buttonVoltar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tfCpf;
-    private javax.swing.JTextField tfData;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfPago;
     private javax.swing.JTextField tfTelefone;
-    private javax.swing.JTextField tfTotal;
     // End of variables declaration//GEN-END:variables
 }

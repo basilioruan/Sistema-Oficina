@@ -29,6 +29,7 @@ public class ServicoController {
     }
     
     public Servico consultarServico(String nome) {
+        nome = nome.toLowerCase();
         for (Servico s : servicos) {
             if(s.getServico().equals(nome)){
                 return s;

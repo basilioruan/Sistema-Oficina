@@ -29,50 +29,37 @@ public class ClienteController {
         }
     }
     
-    public boolean cadastrarCliente(String nome, String cpf, String email, String telefone, float saldoDevedor, float saldoPago, float total, String data) {
-        Cliente cliente = new Cliente(nome, cpf, email, telefone, saldoDevedor, saldoPago, total, data);
+    public boolean cadastrarCliente(String nome, String cpf, String email, String telefone, String data) {
+        nome = nome.toLowerCase();
+        Cliente cliente = new Cliente(nome, cpf, email, telefone, data);
         clientes.add(cliente);
         return clienteDAO.salvarArquivo(clientes);
         
     }
     
-    public String buscarCliente(String cpf) {
+    public Cliente buscarClienteCpf(String cpf) {
         for (Cliente cliente : clientes) {
             if(cliente.getCpf().equals(cpf)){
-                String retorno = "\n" + "Nome....................: " + cliente.getNome() + "\n"
-                                + "CPF.....................: " + cliente.getCpf()+ "\n"
-                                + "E-mail..................: " + cliente.getEmail() + "\n"
-                                + "Telefone................: " + cliente.getTelefone()+ "\n"
-                                + "Total...................: " + cliente.getTotal() + "\n"
-                                + "Saldo pago..............: " + cliente.getSaldoPago() + "\n"
-                                + "Saldo devedor...........: " + cliente.getSaldoDevedor() + "\n"
-                                + "Data de pagamento.......: " + cliente.getData() + "\n"
-                                + "_________________________________________" + "\n" + "\n";
-                return retorno;
+                return cliente;
             }
         }
         
         return null;
     }
     
-    public String exibirClientes(){
-        String retorno;
-        if(clientes.size() > 0) {
-            retorno = "----------------Listando Clientes----------------" + "\n" + "\n";
-            for(Cliente cliente : clientes) {
-                retorno = retorno + "Nome....................: " + cliente.getNome() + "\n"
-                                + "CPF.....................: " + cliente.getCpf()+ "\n"
-                                + "E-mail..................: " + cliente.getEmail() + "\n"
-                                + "Telefone................: " + cliente.getTelefone()+ "\n"
-                                + "Saldo devedor...........: " + cliente.getSaldoDevedor() + "\n"
-                                + "Data de pagamento.......: " + cliente.getData() + "\n"
-                                + "_________________________________________" + "\n" + "\n";
+    public ArrayList<Cliente> buscarClienteNome(String nome) {
+        nome = nome.toLowerCase();
+        ArrayList<Cliente> retorno = new ArrayList<Cliente>();
+        for(Cliente cliente : clientes){
+            if(cliente.getNome().startsWith(nome)){
+                retorno.add(cliente);
             }
         }
-        else {
-            retorno = "Não possui clientes cadastrados no sistema";
-        }
         return retorno;
+    }
+    
+    public ArrayList<Cliente> getClientes(){
+        return clientes;
     }
     
 }

@@ -30,6 +30,7 @@ public class PecaController {
     }
     
     public boolean inserir(String nome, int quantidade, float precoCusto, float precoVenda, String data, String prateleira, String local) {
+        nome = nome.toLowerCase();
         Peca peca = new Peca(nome, quantidade, precoCusto, precoVenda, data, prateleira, local);
         pecas.add(peca);
         if(pecaDAO.salvarArquivo(pecas)) {
@@ -44,28 +45,8 @@ public class PecaController {
         return pecas;
     }
     
-    public String mostrarPecas() throws ClassNotFoundException, IOException {
-        if(pecas.size() > 0) {
-            String retorno = "----------------Listando Peças----------------" + "\n" + "\n";
-
-            for (Peca peca : pecas) {
-                retorno = retorno + "Nome....................: " + peca.getNome() + "\n"
-                        + "Quantidade em estoque...: " + peca.getQuantidade() + "\n"
-                        + "Preço...................: R$" + peca.getPrecoCusto() + "\n"
-                        + "Prateleira..............: " + peca.getPrateleira() + "\n"
-                        + "Local...................: " + peca.getLocal() + "\n"
-                        + "Data de cadastro........: " + peca.getData() + "\n"
-                        + "_________________________________________" + "\n" + "\n";
-            }
-            
-            return retorno;
-        }
-        else {
-            return null;
-        }
-    }
-    
     public ArrayList<Peca> buscarPorNome(String nome) {
+        nome = nome.toLowerCase();
         ArrayList<Peca> pecaProcurada = new ArrayList<Peca>();
         boolean achou = false;
         for (Peca p : pecas) {
@@ -85,6 +66,7 @@ public class PecaController {
     
     
     public Peca consultarPeca(String nome) throws IOException, ClassNotFoundException {
+        nome = nome.toLowerCase();
         for (Peca p : pecas) {
             if(p.getNome().equals(nome)) {
                 return p;
@@ -95,6 +77,7 @@ public class PecaController {
     }
     
     public boolean removerPeca(String nome) throws ClassNotFoundException, IOException {
+        nome = nome.toLowerCase();
         boolean check = false;
         for (Peca peca: pecas) {
             if(peca.getNome().equals(nome)) {
@@ -112,6 +95,8 @@ public class PecaController {
     }
     
     public boolean editarPeca(String pecaRemovida, String nome, int quantidade, float precoCusto, float precoVenda, String data, String prateleira, String local) throws ClassNotFoundException, IOException {
+        nome = nome.toLowerCase();
+        pecaRemovida = pecaRemovida.toLowerCase();
         for (Peca peca : pecas) {
             if(peca.getNome().equals(pecaRemovida)) {
                 peca.setNome(nome);
@@ -132,7 +117,7 @@ public class PecaController {
     
     public int adicionarEstoque(int quantidade, String nome) {
         int novaQuantidade = -1;
-        
+        nome = nome.toLowerCase();
         for (Peca peca : pecas) {
             if(peca.getNome().equals(nome)) {
                 novaQuantidade = quantidade + peca.getQuantidade();
@@ -165,6 +150,7 @@ public class PecaController {
     }
     
     public float realizarVenda(String nome, int vendidos) {
+        nome = nome.toLowerCase();
         float retorno = 0;
         for (Peca peca : pecas) {
             if(peca.getNome().equals(nome)) {
@@ -191,13 +177,14 @@ public class PecaController {
     }
     
     public String contabilizarProdutos() {
-        int totalPecas = pecas.size();
+        int totalPecas = 0;
         float totalCusto = 0;
         
         for(Peca peca : pecas) {
-            totalCusto = totalCusto + peca.getPrecoCusto();
+            totalCusto = totalCusto + peca.getPrecoCusto()*peca.getQuantidade();
+            totalPecas+=peca.getQuantidade();
         }
         
-        return "Total de peças: " + totalPecas + "\n" + "Total preço de custo: " + totalCusto;
+        return "Total de peças em estoque: " + totalPecas + "\n" + "Total preço de custo: R$" + String.format("%.2f", totalCusto);
     }
 }

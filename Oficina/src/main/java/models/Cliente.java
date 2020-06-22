@@ -17,19 +17,13 @@ public class Cliente implements Serializable{
     private String cpf;
     private String email;
     private String telefone;
-    private float saldoDevedor;
-    private float saldoPago;
-    private float total;
     private String data;
     
-    public Cliente (String nome, String cpf, String email, String telefone, float saldoDevedor, float saldoPago, float total, String data) {
+    public Cliente (String nome, String cpf, String email, String telefone, String data) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
-        this.saldoDevedor = saldoDevedor;
-        this.saldoPago = saldoPago;
-        this.total = total;
         this.data = data;
     }
     
@@ -53,7 +47,7 @@ public class Cliente implements Serializable{
         return email;
     }
     
-    public void setEmail() {
+    public void setEmail(String email) {
         this.email = email;
     }
     
@@ -64,18 +58,6 @@ public class Cliente implements Serializable{
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     } 
-    
-    public float getSaldoDevedor() {
-        return saldoDevedor;
-    }
-    
-    public float getSaldoPago() {
-        return saldoPago;
-    }
-    
-    public float getTotal() {
-        return total;
-    }
     
     public String getData() {
         return data;

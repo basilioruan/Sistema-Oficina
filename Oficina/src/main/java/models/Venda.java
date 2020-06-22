@@ -18,18 +18,26 @@ public class Venda implements Serializable{
     private ArrayList<Integer> quantidades;
     private ArrayList<Servico> servicos;
     private float valor;
+    private float desconto;
     private String data;
+    private int situacao; //0 ta pago, 1 ta na caderneta
     
-    public Venda(ArrayList<Peca> produtos, ArrayList<Integer> quantidades, ArrayList<Servico> servicos, float valor, String data) {
+    public Venda(ArrayList<Peca> produtos, ArrayList<Integer> quantidades, ArrayList<Servico> servicos, float valor, float desconto, int situacao, String data) {
         this.produtos = produtos;
         this.quantidades = quantidades;
         this.servicos = servicos;
         this.valor = valor;
+        this.desconto = desconto;
+        this.situacao = situacao;
         this.data = data;
     }
     
     public ArrayList<Peca> getProdutos() {
         return produtos;
+    }
+    
+    public ArrayList<Servico> getServico() {
+        return servicos;
     }
     
     public ArrayList<Integer> getQuantidades() {
@@ -48,6 +56,10 @@ public class Venda implements Serializable{
         this.valor = valor;
     }
     
+    public float getDesconto(){
+        return desconto;
+    }
+    
     public String getData() {
         return data;
     }
@@ -56,4 +68,11 @@ public class Venda implements Serializable{
         this.data = data;
     }
     
+    public float getDescontoRs(){
+        return valor * (desconto/100);
+    }
+    
+    public float getTotal(){
+        return valor - getDescontoRs();
+    }
 }

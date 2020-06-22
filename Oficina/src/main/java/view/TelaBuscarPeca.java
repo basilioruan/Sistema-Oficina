@@ -59,7 +59,6 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -69,16 +68,19 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
         buttonRemover = new javax.swing.JButton();
         buttonAdicionar = new javax.swing.JButton();
         buttonCadastrar = new javax.swing.JButton();
+        buttonSemEstoque = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SGO - Buscar peça");
         setResizable(false);
 
-        jLabel1.setText("Gerenciador de Peças");
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Buscar");
 
+        tfNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfNomeKeyPressed(evt);
@@ -88,12 +90,13 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             }
         });
 
+        jtPeca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtPeca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome", "Qtd", "Custo", "Venda", "Prateleira", "Local"
+                "Nome", "Quantidade", "Custo (R$)", "Venda (R$)", "Prateleira", "Local"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -114,6 +117,7 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             jtPeca.getColumnModel().getColumn(5).setResizable(false);
         }
 
+        buttonVoltar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         buttonVoltar.setText("Voltar");
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,43 +125,56 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             }
         });
 
-        buttonEditar.setBackground(new java.awt.Color(255, 158, 58));
+        buttonEditar.setBackground(new java.awt.Color(0, 204, 204));
         buttonEditar.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         buttonEditar.setForeground(new java.awt.Color(254, 254, 254));
         buttonEditar.setText("Editar");
+        buttonEditar.setPreferredSize(new java.awt.Dimension(101, 29));
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditarActionPerformed(evt);
             }
         });
 
-        buttonRemover.setBackground(new java.awt.Color(219, 23, 72));
+        buttonRemover.setBackground(new java.awt.Color(0, 204, 204));
         buttonRemover.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         buttonRemover.setForeground(new java.awt.Color(254, 254, 254));
         buttonRemover.setText("Excluir");
+        buttonRemover.setPreferredSize(new java.awt.Dimension(101, 29));
         buttonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoverActionPerformed(evt);
             }
         });
 
-        buttonAdicionar.setBackground(new java.awt.Color(58, 160, 255));
+        buttonAdicionar.setBackground(new java.awt.Color(0, 204, 204));
         buttonAdicionar.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         buttonAdicionar.setForeground(new java.awt.Color(254, 254, 254));
-        buttonAdicionar.setText("Ad. Estoq.");
+        buttonAdicionar.setText("Ad. Estoque");
+        buttonAdicionar.setPreferredSize(new java.awt.Dimension(101, 29));
         buttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAdicionarActionPerformed(evt);
             }
         });
 
-        buttonCadastrar.setBackground(new java.awt.Color(9, 215, 92));
+        buttonCadastrar.setBackground(new java.awt.Color(0, 204, 204));
         buttonCadastrar.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         buttonCadastrar.setForeground(new java.awt.Color(254, 254, 254));
         buttonCadastrar.setText("Cadastrar");
         buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCadastrarActionPerformed(evt);
+            }
+        });
+
+        buttonSemEstoque.setBackground(new java.awt.Color(0, 204, 204));
+        buttonSemEstoque.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        buttonSemEstoque.setForeground(new java.awt.Color(255, 255, 255));
+        buttonSemEstoque.setText("Sem estoque");
+        buttonSemEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSemEstoqueActionPerformed(evt);
             }
         });
 
@@ -168,62 +185,59 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-                    .addComponent(tfNome)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(buttonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(buttonVoltar)
-                                .addGap(136, 136, 136)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonSemEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 143, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(buttonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonVoltar)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addComponent(buttonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonSemEstoque)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonEditar)
-                    .addComponent(buttonRemover)
-                    .addComponent(buttonAdicionar)
-                    .addComponent(buttonCadastrar)))
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCadastrar))
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -244,8 +258,8 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
         for (int i=0; i<tamanho; i++) {
             tabelaPecas.removeRow(0);
         }
-        
-        ArrayList<Peca> pecas = controller.buscarPorNome(tfNome.getText());
+        String nome = tfNome.getText().toLowerCase();
+        ArrayList<Peca> pecas = controller.buscarPorNome(nome);
         if(pecas != null){
             for (Peca peca : pecas) {
                 Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
@@ -262,8 +276,8 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
             tabelaPecas.removeRow(0);
             
         }
-        
-        ArrayList<Peca> pecas = controller.buscarPorNome(tfNome.getText());
+        String nome = tfNome.getText().toLowerCase();
+        ArrayList<Peca> pecas = controller.buscarPorNome(nome);
         if(pecas != null){
             for (Peca peca : pecas) {
                 Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
@@ -334,6 +348,35 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
+    private void buttonSemEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSemEstoqueActionPerformed
+        int tamanho = tabelaPecas.getRowCount();
+        for (int i=0; i<tamanho; i++) {
+            tabelaPecas.removeRow(0);
+        }
+        
+        if(buttonSemEstoque.isSelected()){
+
+            ArrayList<Peca> pecas = controller.getSemEstoque();
+            if(pecas != null){
+                for (Peca peca : pecas) {
+                    Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
+                    tabelaPecas.addRow(dados);
+                }
+            }
+        }
+        else{
+            
+            ArrayList<Peca> pecas = controller.getPecas();
+            if(pecas != null){
+                for (Peca peca : pecas) {
+                    Object[] dados = {peca.getNome(), peca.getQuantidade(), peca.getPrecoCusto(), peca.getPrecoVenda(), peca.getPrateleira(), peca.getLocal()};
+                    tabelaPecas.addRow(dados);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_buttonSemEstoqueActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -345,7 +388,7 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -375,8 +418,8 @@ public class TelaBuscarPeca extends javax.swing.JFrame {
     private javax.swing.JButton buttonCadastrar;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonRemover;
+    private javax.swing.JToggleButton buttonSemEstoque;
     private javax.swing.JButton buttonVoltar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;

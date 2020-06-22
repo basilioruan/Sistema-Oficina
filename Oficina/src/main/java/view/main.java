@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class main {
     
-    public static void main (String[] args) throws IOException, InterruptedException, ClassNotFoundException {
-        MenuView.menu();
+    public static void main (String[] args){
+        new MenuPrincipal().setVisible(true);
     }
 }
